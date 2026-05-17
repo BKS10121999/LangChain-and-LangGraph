@@ -142,26 +142,13 @@ Useful commands inside the app:
 
 ## Screenshots
 
-Add screenshots of your running assistant here.
+The following screenshots document the assistant in action:
 
-Recommended screenshots:
+1. **app Initialization.jpg** - Application startup and session creation.
+2. **final prompt response with updation to logs.jpg** - Final prompt response with log file updates.
+3. **response to prompts with session and log files creation.jpg** - Response to prompts demonstrating session and log file generation.
 
-- Application startup and session creation.
-- `/docs` output showing available documents.
-- Q&A request with sources.
-- Summarization request with key points.
-- Calculation request showing calculator/tool usage.
-- Generated `logs/` and `sessions/` files.
-
-```text
-screenshots/
-├── startup.png
-├── docs-list.png
-├── qa-example.png
-├── summary-example.png
-├── calculation-example.png
-└── persistence-files.png
-```
+All screenshots are located in the `screenshots/` folder.
 
 ## Example Conversations
 
