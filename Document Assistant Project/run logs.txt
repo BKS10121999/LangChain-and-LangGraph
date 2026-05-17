@@ -1,0 +1,104 @@
+(venv) PS E:\Udacity Lang Chain & Graph\project> python starter/main.py
+
+============================================================
+DocDacity Intelligent Document Assistant
+============================================================
+
+ INITIALIZING ASSISTANT...
+Enter your user ID (or press Enter for 'demo_user'): 1
+Started new session a004431d-7a9d-49f1-830d-7546fff8f822
+Session started: a004431d-7a9d-49f1-830d-7546fff8f822
+
+AVAILABLE COMMANDS:
+  /help     - Show this help message
+  /docs     - List available documents
+  /quit     - Exit the assistant
+
+Example queries:
+  - What's the total amount in invoice INV-001?
+  - Summarize all contracts
+  - Calculate the sum of all invoice totals
+  - Find documents with amounts over $50,000
+
+
+Enter Message: What is the patient's diagnosis?
+
+Processing...
+
+🤖 Assistant: The patient's diagnosis was not found in the retrieved medical or claim documents.
+
+INTENT: qa
+
+CONFIDENCE: 0.25
+
+CONVERSATION SUMMARY: The conversation focused on determining the patient's diagnosis. However, the diagnosis was not found in the available medical or claim documents.
+
+Enter Message: Summarize the financial report.
+
+Processing...
+
+🤖 Assistant: No matching document was found to summarize. Please provide a document ID or a more specific document type.
+
+INTENT: summarization
+
+CONFIDENCE: 0.95
+
+CONVERSATION SUMMARY: The conversation primarily revolves around identifying the patient's diagnosis and summarizing a financial report. However, both tasks remain unresolved due to the absence of relevant documents. The patient’s diagnosis could not be determined from the available medical or claim documents, and no financial report document was found for summarization.
+
+Enter Message: Calculate 15 percent of 250000.
+
+Processing...
+
+🤖 Assistant: Evaluated `(15/100)*250000` with the calculator. Result: 37500.0.
+
+INTENT: calculation
+
+CONFIDENCE: 0.98
+
+TOOLS USED: calculator
+
+CONVERSATION SUMMARY: The conversation focused on two main topics: determining a patient's diagnosis and summarizing a financial report. Both tasks were hindered by the lack of relevant documents. Additionally, a calculation was performed to find 15% of 250,000, resulting in 37,500. There are no unresolved questions at this point, but the need for specific documents remains.
+
+Enter Message: Tell me a joke about databases.
+
+Processing...
+
+🤖 Assistant: I am set up to answer questions, summarize documents, and perform calculations over the document collection. Please ask about an invoice, claim, contract, report, or a calculation.
+
+INTENT: unknown
+
+CONFIDENCE: 0.90
+
+CONVERSATION SUMMARY: The conversation primarily revolved around two key topics: determining a patient's diagnosis and summarizing a financial report. Both tasks were impeded by the absence of relevant documents. A calculation was successfully performed to find 15% of 250,000, resulting in 37,500. The conversation also included a request for a joke about databases, which was redirected to focus on document-related queries. The need for specific documents remains a challenge, and no unresolved questions were identified.
+
+Enter Message: What is the quarterly revenue?
+
+Processing...
+
+🤖 Assistant: The quarterly revenue was not found in the retrieved documents. The documents available are invoices, which detail specific transactions but do not provide a summary of quarterly revenue.
+
+INTENT: qa
+
+SOURCES: INV-003, INV-002, INV-001
+
+CONFIDENCE: 0.80
+
+CONVERSATION SUMMARY: The conversation focused on two main topics: determining a patient's diagnosis and summarizing a financial report. Both tasks were hindered by the lack of relevant documents. A calculation was successfully performed to find 15% of 250,000, resulting in 37,500. The conversation also included a request for a joke about databases, which was redirected to focus on document-related queries. The need for specific documents remains a challenge, and no unresolved questions were identified. Recent interactions involved attempts to determine the quarterly revenue using invoices (INV-003, INV-002, INV-001), but the documents did not provide a summary of quarterly revenue.
+
+Enter Message: Summarize the healthcare document.
+
+Processing...
+
+🤖 Assistant: Insurance Claim #78901 for John Doe involves medical expense reimbursement totaling $2,450. The claim includes costs for a hospital visit, diagnostic tests, medication, and a follow-up consultation. The incident occurred on 2024-02-10 and is currently under review.
+
+INTENT: summarization
+
+SOURCES: CLM-001
+
+CONFIDENCE: 0.95
+
+CONVERSATION SUMMARY: The conversation primarily revolved around two topics: determining a patient's diagnosis and summarizing financial and healthcare documents. The patient's diagnosis was not found in the available documents. Attempts to summarize a financial report were unsuccessful due to the absence of a specific document. A calculation was performed to find 15% of 250,000, resulting in 37,500. The conversation also included a request for a joke about databases, which was redirected to focus on document-related queries. 
+
+Recent interactions involved attempts to determine quarterly revenue using invoices (INV-003, INV-002, INV-001), but these documents did not provide a summary of quarterly revenue. A healthcare document (CLM-001) was summarized, detailing a medical expense reimbursement claim for John Doe, with a total claim amount of $2,450, currently under review. 
+
+No unresolved questions were identified, but the need for specific documents remains a challenge.
