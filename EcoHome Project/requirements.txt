@@ -1,0 +1,31 @@
+# Core LangChain dependencies
+langchain==0.3.25
+langchain-openai==0.3.18
+langchain-community==0.3.24
+langgraph==0.4.7
+
+# Database dependencies
+sqlalchemy==2.0.41
+
+# Vector store and embeddings
+chromadb==1.0.12
+openai==1.82.0
+
+# Data processing
+pandas==2.2.3
+numpy==1.26.4
+
+# Environment and configuration
+python-dotenv==1.1.0
+
+# Jupyter notebook dependencies
+jupyter==1.1.1
+ipykernel==6.29.5
+
+# Evaluation and testing
+pytest==8.3.5
+pytest-asyncio==0.26.0
+
+# Additional utilities
+requests==2.32.3
+python-dateutil==2.9.0.post0
