@@ -1,0 +1,43 @@
+PS C:\Users\BharathKumar\OneDrive - Synapx\lcgraph> & "c:/Users/BharathKumar/OneDrive - Synapx/lcgraph/UDA-Hub/venv/Scripts/python.exe" "c:/Users/BharathKumar/OneDrive - Synapx/lcgraph/UDA-Hub/tests/test_agents.py"
+================================= test session starts =================================
+platform win32 -- Python 3.14.5, pytest-9.0.3, pluggy-1.6.0 -- C:\Users\BharathKumar\OneDrive - Synapx\lcgraph\UDA-Hub\venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\BharathKumar\OneDrive - Synapx\lcgraph
+plugins: anyio-4.13.0, langsmith-0.8.5
+collected 32 items                                                                     
+
+UDA-Hub/tests/test_agents.py::TestDatabaseSetup::test_cultpass_db_exists PASSED  [  3%]
+UDA-Hub/tests/test_agents.py::TestDatabaseSetup::test_udahub_db_exists PASSED    [  6%]
+UDA-Hub/tests/test_agents.py::TestDatabaseSetup::test_cultpass_has_users PASSED  [  9%]
+UDA-Hub/tests/test_agents.py::TestDatabaseSetup::test_cultpass_has_experiences PASSED [ 12%]
+UDA-Hub/tests/test_agents.py::TestDatabaseSetup::test_cultpass_has_subscriptions PASSED [ 15%]
+UDA-Hub/tests/test_agents.py::TestDatabaseSetup::test_udahub_has_knowledge_articles PASSED [ 18%]
+UDA-Hub/tests/test_agents.py::TestDatabaseSetup::test_udahub_has_account PASSED  [ 21%]
+UDA-Hub/tests/test_agents.py::TestDatabaseSetup::test_udahub_has_tickets PASSED  [ 25%]
+UDA-Hub/tests/test_agents.py::TestKnowledgeRetrieval::test_search_login_issue PASSED [ 28%]
+UDA-Hub/tests/test_agents.py::TestKnowledgeRetrieval::test_search_subscription PASSED [ 31%]
+UDA-Hub/tests/test_agents.py::TestKnowledgeRetrieval::test_search_refund PASSED  [ 34%]
+UDA-Hub/tests/test_agents.py::TestKnowledgeRetrieval::test_search_no_results PASSED [ 37%]
+UDA-Hub/tests/test_agents.py::TestKnowledgeRetrieval::test_search_reservation PASSED [ 40%]
+UDA-Hub/tests/test_agents.py::TestAccountTools::test_lookup_user_by_email PASSED [ 43%]
+UDA-Hub/tests/test_agents.py::TestAccountTools::test_lookup_user_not_found PASSED [ 46%]
+UDA-Hub/tests/test_agents.py::TestAccountTools::test_get_subscription PASSED     [ 50%]
+UDA-Hub/tests/test_agents.py::TestAccountTools::test_check_reservations PASSED   [ 53%]
+UDA-Hub/tests/test_agents.py::TestTicketTools::test_update_ticket_invalid_status PASSED [ 56%]
+UDA-Hub/tests/test_agents.py::TestTicketTools::test_log_message_invalid_role PASSED [ 59%]
+UDA-Hub/tests/test_agents.py::TestWorkflowRouting::test_workflow_compiles PASSED [ 62%]
+UDA-Hub/tests/test_agents.py::TestWorkflowRouting::test_workflow_has_nodes PASSED [ 65%]
+UDA-Hub/tests/test_agents.py::TestWorkflowRouting::test_supervisor_routes_to_classifier_initially PASSED [ 68%]
+UDA-Hub/tests/test_agents.py::TestWorkflowRouting::test_supervisor_routes_to_escalation_on_critical PASSED [ 71%]
+UDA-Hub/tests/test_agents.py::TestWorkflowRouting::test_supervisor_routes_to_resolver_after_classification PASSED [ 75%]
+UDA-Hub/tests/test_agents.py::TestWorkflowRouting::test_supervisor_ends_on_high_confidence PASSED [ 78%]
+UDA-Hub/tests/test_agents.py::TestWorkflowRouting::test_supervisor_escalates_on_low_confidence PASSED [ 81%]
+UDA-Hub/tests/test_agents.py::TestEndToEnd::test_simple_query_resolution PASSED  [ 84%]
+UDA-Hub/tests/test_agents.py::TestEndToEnd::test_escalation_flow PASSED          [ 87%]
+UDA-Hub/tests/test_agents.py::TestMemory::test_session_memory_persists PASSED    [ 90%]
+UDA-Hub/tests/test_agents.py::TestMemory::test_state_inspection_via_thread PASSED [ 93%]
+UDA-Hub/tests/test_agents.py::TestKnowledgeBaseDiversity::test_at_least_14_articles PASSED [ 96%]
+UDA-Hub/tests/test_agents.py::TestKnowledgeBaseDiversity::test_covers_multiple_categories PASSED [100%]
+
+================================= 32 passed in 1.54s ==================================
+PS C:\Users\BharathKumar\OneDrive - Synapx\lcgraph> 

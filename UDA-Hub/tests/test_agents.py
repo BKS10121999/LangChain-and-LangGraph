@@ -332,7 +332,9 @@ class TestEndToEnd:
         if not db_exists(UDAHUB_DB):
             pytest.skip("UDA-Hub DB not set up yet")
         from agentic.workflow import orchestrator
+        from agentic.workflow_logger import clear_logs, get_logs
 
+        clear_logs()
         config = {"configurable": {"thread_id": "test-e2e-simple"}}
         result = orchestrator.invoke(
             {"messages": [HumanMessage(content="How do I reserve an event on CultPass?")]},
@@ -342,12 +344,22 @@ class TestEndToEnd:
         last_msg = result["messages"][-1].content
         assert len(last_msg) > 10
 
+        runtime_logs = get_logs(thread_id="test-e2e-simple")
+        assert runtime_logs, "Expected structured runtime logs for simple E2E flow"
+        assert any(event["event_type"] == "classification" for event in runtime_logs)
+        assert any(event["event_type"] == "routing_decision" for event in runtime_logs)
+        assert any(event["event_type"] == "resolution_attempt" for event in runtime_logs)
+        assert all(event["thread_id"] == "test-e2e-simple" for event in runtime_logs)
+        assert all(event["ticket_id"] for event in runtime_logs)
+
     def test_escalation_flow(self):
         """Test E2E for a critical issue that triggers escalation."""
         if not db_exists(UDAHUB_DB):
             pytest.skip("UDA-Hub DB not set up yet")
         from agentic.workflow import orchestrator
+        from agentic.workflow_logger import clear_logs, get_logs
 
+        clear_logs()
         config = {"configurable": {"thread_id": "test-e2e-escalate"}}
         result = orchestrator.invoke(
             {"messages": [HumanMessage(content="My account has been hacked and someone is using my credit card!")]},
@@ -356,6 +368,13 @@ class TestEndToEnd:
         assert len(result["messages"]) > 1
         last_msg = result["messages"][-1].content
         assert len(last_msg) > 10
+
+        runtime_logs = get_logs(thread_id="test-e2e-escalate")
+        assert runtime_logs, "Expected structured runtime logs for escalation flow"
+        assert any(event["event_type"] == "escalation" for event in runtime_logs)
+        assert any(event["route"] == "escalation" for event in runtime_logs if event["event_type"] == "routing_decision")
+        assert all(event["thread_id"] == "test-e2e-escalate" for event in runtime_logs)
+        assert all(event["ticket_id"] for event in runtime_logs)
 
 
 # ============================================================
@@ -406,6 +425,8 @@ class TestMemory:
         latest = state_history[0]
         assert "messages" in latest.values
         assert len(latest.values["messages"]) > 0
+        assert "workflow_events" in latest.values
+        assert len(latest.values["workflow_events"]) > 0
 
 
 # ============================================================
