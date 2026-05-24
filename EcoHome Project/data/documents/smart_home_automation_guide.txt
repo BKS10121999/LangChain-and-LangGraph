@@ -1,0 +1,11 @@
+Smart Home Automation for Lower Energy Bills
+
+Smart home automation can reduce wasted electricity by scheduling loads around occupancy, solar production, and time-of-use pricing. Start by creating routines for lighting, thermostats, water heaters, EV chargers, and large appliances.
+
+Use occupancy sensors and geofencing so lights, HVAC setbacks, and plug loads switch to low-power mode when nobody is home. For example, raise the summer thermostat setpoint by 2 to 4 degrees when the house is empty and restore comfort settings 30 to 60 minutes before people return.
+
+Automate flexible devices to run when electricity is cheapest. Dishwashers, laundry, pool pumps, and EV charging should default to off-peak windows unless solar production is high enough to cover the load. A smart controller can compare current prices, forecasted solar, and user deadlines before starting equipment.
+
+Smart plugs and appliance monitors help identify hidden standby loads from TVs, game consoles, chargers, and office equipment. Group these devices into scenes that shut down automatically overnight.
+
+Good automation rules should always include safety and comfort constraints. Limit thermostat setbacks, prevent short cycling, and allow manual override. Review automation logs monthly to confirm savings and adjust routines for seasonal changes.

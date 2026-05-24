@@ -74,8 +74,8 @@ class DatabaseManager:
             session.close()
     
     def add_generation_record(self, timestamp: datetime, generation_kwh: float,
-                            weather_condition: str = None, temperature_c: float = None,
-                            solar_irradiance: float = None):
+                            weather_condition: str = None, battery_storage_level: float = None,
+                            exported_to_grid_kwh: float = None):
         """Add solar generation record"""
         session = self.get_session()
         try:
@@ -83,8 +83,8 @@ class DatabaseManager:
                 timestamp=timestamp,
                 generation_kwh=generation_kwh,
                 weather_condition=weather_condition,
-                temperature_c=temperature_c,
-                solar_irradiance=solar_irradiance
+                battery_storage_level=battery_storage_level,
+                exported_to_grid_kwh=exported_to_grid_kwh
             )
             session.add(record)
             session.commit()

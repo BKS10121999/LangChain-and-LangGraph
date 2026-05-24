@@ -1,0 +1,44 @@
+{
+  "documents": [
+    {
+      "name": "advanced_hvac_optimization_strategies.txt",
+      "size": 1367,
+      "modified": 1779591842
+    },
+    {
+      "name": "battery_storage_optimization_guide.txt",
+      "size": 1267,
+      "modified": 1779591842
+    },
+    {
+      "name": "hvac_optimization_guide.txt",
+      "size": 7613,
+      "modified": 1779555435
+    },
+    {
+      "name": "renewable_energy_integration_playbook.txt",
+      "size": 1405,
+      "modified": 1779591842
+    },
+    {
+      "name": "seasonal_energy_management_checklist.txt",
+      "size": 1305,
+      "modified": 1779591842
+    },
+    {
+      "name": "smart_home_automation_guide.txt",
+      "size": 1341,
+      "modified": 1779591768
+    },
+    {
+      "name": "tip_device_best_practices.txt",
+      "size": 1772,
+      "modified": 1779555435
+    },
+    {
+      "name": "tip_energy_savings.txt",
+      "size": 1414,
+      "modified": 1779555435
+    }
+  ]
+}

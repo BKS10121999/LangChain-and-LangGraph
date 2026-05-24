@@ -7,15 +7,60 @@ import random
 from datetime import datetime, timedelta
 from typing import Dict, Any
 from sqlalchemy import func
+from dotenv import load_dotenv
 from langchain_core.tools import tool
 from langchain_chroma import Chroma
 from langchain_openai import OpenAIEmbeddings
 from langchain_community.document_loaders import TextLoader
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from models.energy import DatabaseManager, EnergyUsage, SolarGeneration
+
+load_dotenv()
 
 # Initialize database manager
 db_manager = DatabaseManager()
+
+
+def _build_embeddings() -> OpenAIEmbeddings:
+    """Create embeddings configured for the current environment."""
+    api_key = os.getenv("VOCAREUM_API_KEY") or os.getenv("OPENAI_API_KEY")
+    if not api_key:
+        raise ValueError("Missing VOCAREUM_API_KEY or OPENAI_API_KEY for embeddings.")
+
+    base_url = (
+        os.getenv("OPENAI_BASE_URL")
+        or os.getenv("VOCAREUM_OPENAI_BASE_URL")
+        or "https://openai.vocareum.com/v1"
+    )
+
+    embedding_kwargs = {
+        "api_key": api_key,
+        "model": os.getenv("OPENAI_EMBEDDING_MODEL", "text-embedding-3-small"),
+        "check_embedding_ctx_length": False,
+    }
+
+    if base_url:
+        embedding_kwargs["base_url"] = base_url
+
+    return OpenAIEmbeddings(**embedding_kwargs)
+
+
+def _get_documents_manifest(documents_dir: str) -> Dict[str, Any]:
+    """Build a lightweight manifest for all source documents."""
+    doc_files = []
+    if os.path.isdir(documents_dir):
+        for name in sorted(os.listdir(documents_dir)):
+            if not name.endswith(".txt"):
+                continue
+            path = os.path.join(documents_dir, name)
+            doc_files.append(
+                {
+                    "name": name,
+                    "size": os.path.getsize(path),
+                    "modified": int(os.path.getmtime(path)),
+                }
+            )
+    return {"documents": doc_files}
 
 @tool
 def get_weather_forecast(date: str = None, days: int = 3) -> Dict[str, Any]:
@@ -1110,72 +1155,116 @@ def get_recent_energy_summary(hours: int = 24) -> Dict[str, Any]:
         return {"error": f"Failed to get recent energy summary: {str(e)}"}
 
 @tool
-def search_energy_tips(query: str, max_results: int = 5) -> Dict[str, Any]:
+def search_energy_tips(query: str, top_k: int = 3) -> Dict[str, Any]:
     """
-    Search for energy-saving tips and best practices using RAG.
-    
+    Search for energy-saving tips and best practices using ChromaDB vector store.
+
+    Performs semantic similarity search over energy tip documents. Loads an
+    existing Chroma vector store if available, otherwise initializes one from
+    the documents in data/documents/.
+
     Args:
-        query (str): Search query for energy tips
-        max_results (int): Maximum number of results to return
-    
+        query (str): Natural language search query for energy tips.
+        top_k (int): Number of top matching results to return (default 3, max 10).
+
     Returns:
-        Dict[str, Any]: Relevant energy tips and best practices
+        Dict[str, Any]: Search results containing matching content, source file,
+            and relevance score for each result.
     """
     try:
-        # Initialize vector store if it doesn't exist
+        if not query or not query.strip():
+            return {"error": "Query must be a non-empty string."}
+
+        top_k = max(1, min(int(top_k), 10))
+
         persist_directory = "data/vectorstore"
-        if not os.path.exists(persist_directory):
-            os.makedirs(persist_directory)
-        
-        # Load documents if vector store doesn't exist
-        if not os.path.exists(os.path.join(persist_directory, "chroma.sqlite3")):
-            # Load documents
+        documents_dir = "data/documents"
+        chroma_db_file = os.path.join(persist_directory, "chroma.sqlite3")
+        manifest_path = os.path.join(persist_directory, "document_manifest.json")
+        embeddings = _build_embeddings()
+        current_manifest = _get_documents_manifest(documents_dir)
+
+        if not current_manifest["documents"]:
+            return {"error": "No documents found in data/documents/ to index."}
+
+        # Load existing vector store or initialize a new one
+        stored_manifest = None
+        if os.path.exists(manifest_path):
+            try:
+                with open(manifest_path, "r", encoding="utf-8") as manifest_file:
+                    stored_manifest = json.load(manifest_file)
+            except (OSError, json.JSONDecodeError):
+                stored_manifest = None
+
+        needs_rebuild = (not os.path.exists(chroma_db_file)) or (stored_manifest != current_manifest)
+
+        if not needs_rebuild:
+            vectorstore = Chroma(
+                persist_directory=persist_directory,
+                embedding_function=embeddings
+            )
+        else:
+            # Build vector store from source documents
+            doc_files = [
+                os.path.join(documents_dir, f)
+                for f in os.listdir(documents_dir)
+                if f.endswith(".txt")
+            ] if os.path.isdir(documents_dir) else []
+
             documents = []
-            for doc_path in ["data/documents/tip_device_best_practices.txt", "data/documents/tip_energy_savings.txt"]:
-                if os.path.exists(doc_path):
-                    loader = TextLoader(doc_path)
-                    docs = loader.load()
-                    documents.extend(docs)
-            
-            # Split documents
-            text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
+            for doc_path in doc_files:
+                try:
+                    loader = TextLoader(doc_path, encoding="utf-8")
+                    documents.extend(loader.load())
+                except Exception as load_err:
+                    continue  # Skip unreadable files
+
+            if not documents:
+                return {"error": "Failed to load any documents for indexing."}
+
+            text_splitter = RecursiveCharacterTextSplitter(
+                chunk_size=1000,
+                chunk_overlap=200
+            )
             splits = text_splitter.split_documents(documents)
-            
-            # Create vector store
-            embeddings = OpenAIEmbeddings()
+
+            os.makedirs(persist_directory, exist_ok=True)
             vectorstore = Chroma.from_documents(
                 documents=splits,
                 embedding=embeddings,
                 persist_directory=persist_directory
             )
-        else:
-            # Load existing vector store
-            embeddings = OpenAIEmbeddings()
-            vectorstore = Chroma(
-                persist_directory=persist_directory,
-                embedding_function=embeddings
-            )
-        
-        # Search for relevant documents
-        docs = vectorstore.similarity_search(query, k=max_results)
-        
-        results = {
-            "query": query,
-            "total_results": len(docs),
-            "tips": []
-        }
-        
-        for i, doc in enumerate(docs):
-            results["tips"].append({
-                "rank": i + 1,
-                "content": doc.page_content,
-                "source": doc.metadata.get("source", "unknown"),
-                "relevance_score": "high" if i < 2 else "medium" if i < 4 else "low"
+
+            with open(manifest_path, "w", encoding="utf-8") as manifest_file:
+                json.dump(current_manifest, manifest_file, indent=2)
+
+        # Perform similarity search with relevance scores
+        results_with_scores = vectorstore.similarity_search_with_relevance_scores(
+            query, k=top_k
+        )
+
+        tips = []
+        for rank, (doc, score) in enumerate(results_with_scores, start=1):
+            source = doc.metadata.get("source", "unknown")
+            tips.append({
+                "rank": rank,
+                "content": doc.page_content.strip(),
+                "source": os.path.basename(source),
+                "relevance_score": round(float(score), 4)
             })
-        
-        return results
+
+        return {
+            "query": query,
+            "top_k": top_k,
+            "total_results": len(tips),
+            "tips": tips
+        }
+
     except Exception as e:
-        return {"error": f"Failed to search energy tips: {str(e)}"}
+        return {
+            "error": f"Failed to search energy tips: {str(e)}",
+            "error_type": type(e).__name__
+        }
 
 @tool
 def calculate_energy_savings(device_type: str, current_usage_kwh: float, 

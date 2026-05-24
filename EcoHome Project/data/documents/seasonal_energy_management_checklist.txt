@@ -1,0 +1,11 @@
+Seasonal Energy Management Checklist
+
+Energy strategy should change with the season because weather, daylight, and household routines affect both consumption and solar generation. A simple seasonal checklist keeps the home efficient year-round.
+
+In summer, focus on cooling loads and solar heat gain. Close blinds during the hottest afternoon hours, use ceiling fans to reduce air-conditioning demand, and pre-cool the home during cheaper morning hours. Clean HVAC filters and confirm attic ventilation is working.
+
+In winter, reduce heat loss first. Seal drafts around doors and windows, verify insulation performance, and use programmable setbacks during sleep or away periods. If electric resistance heating is present, avoid peak-rate heating whenever possible.
+
+During spring and fall shoulder seasons, take advantage of mild outdoor temperatures. Use natural ventilation when humidity allows, reduce unnecessary HVAC runtime, and schedule maintenance before extreme weather returns.
+
+Seasonal planning should also include solar and storage adjustments. Summer usually supports higher solar self-consumption, while winter may require more grid support and tighter off-peak scheduling. Review bills and device runtimes at the start of each season to update operating rules and savings goals.

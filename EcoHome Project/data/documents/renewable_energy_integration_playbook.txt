@@ -1,0 +1,11 @@
+Renewable Energy Integration Playbook
+
+Homes with solar panels, EVs, batteries, and smart appliances get the most value when these systems are coordinated instead of managed separately. The main goal is to maximize self-consumption of solar energy, minimize grid imports during peak-price periods, and protect backup capacity for outages.
+
+Shift flexible daytime loads into the highest solar production window, usually late morning through mid-afternoon. Water heating, laundry, dishwasher cycles, and discretionary EV charging are strong candidates. If export compensation is low, consuming solar on site often provides more value than sending it to the grid.
+
+When a battery is available, prioritize charging it with excess solar before evening peaks. On cloudy days or during high-price alerts, compare off-peak overnight charging against expected solar output the next day.
+
+Renewable integration also requires inverter and panel awareness. Partial shading, dirty panels, and inverter clipping can reduce usable energy. Review monthly generation trends and compare them to weather conditions to identify underperformance.
+
+A strong renewable strategy balances economics, comfort, and resilience. Maintain a battery reserve for outages, avoid unnecessary grid charging when solar is likely to recover, and keep flexible schedules so the home can respond to changing weather and price signals.

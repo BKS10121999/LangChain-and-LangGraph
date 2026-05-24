@@ -1,0 +1,11 @@
+Battery Storage Optimization Guide
+
+A home battery creates the most value when its charging and discharging schedule matches electricity prices, solar availability, and backup requirements. The battery should not simply cycle every day without a strategy.
+
+On sunny days, reserve battery charging capacity for midday solar surplus. This increases self-consumption and reduces evening grid imports. If the home has low export rates, storing solar for later use often produces the best financial return.
+
+On cloudy days, consider charging from the grid during overnight off-peak periods if the next day includes expensive peak pricing. This is especially useful when the battery can offset HVAC, cooking, or EV loads during the evening.
+
+Maintain a minimum state-of-charge reserve for outages or critical loads. The reserve amount depends on site priorities, but many homes keep 15 to 30 percent available for resilience.
+
+Battery optimization should also consider efficiency losses and cycling wear. Avoid shallow cycling that provides little economic benefit, and do not discharge fully unless necessary. Review weekly trends in charge timing, round-trip efficiency, and peak-shaving performance to confirm the battery is reducing both cost and peak demand.

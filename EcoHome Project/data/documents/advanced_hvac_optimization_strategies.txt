@@ -1,0 +1,11 @@
+Advanced HVAC Optimization Strategies
+
+HVAC systems are often the largest electrical load in a home, so small operating changes can produce meaningful savings. The first priority is matching runtime to occupancy and outdoor conditions without sacrificing comfort.
+
+Use thermostat setbacks during sleep and away periods, but keep them moderate so the system does not need a large recovery burst during peak-price hours. In cooling season, pre-cool during cheaper periods if a hot afternoon is expected. In heating season, pre-heat before morning demand spikes when rates are high.
+
+Humidity matters almost as much as temperature. In humid climates, a slightly higher cooling setpoint may still feel comfortable if dehumidification is effective. Ceiling fans can improve comfort and let occupants tolerate higher summer setpoints.
+
+Equipment maintenance has a direct energy impact. Dirty filters, blocked vents, unsealed ducts, and low refrigerant can raise consumption significantly. Review abnormal runtime patterns against weather data to spot inefficiency.
+
+Zoning and smart thermostats improve results when used carefully. Prioritize occupied rooms, reduce conditioning in unused spaces, and avoid frequent manual overrides that defeat scheduling. For homes with solar, align stronger daytime cooling or heating with high solar production when practical.
